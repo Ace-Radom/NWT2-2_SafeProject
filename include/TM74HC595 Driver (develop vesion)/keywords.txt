@@ -1,0 +1,8 @@
+TM74HC595	KEYWORD1
+_With_decimalPoint	KEYWORD1
+_without_decimalPoint	KEYWORD1
+
+send	KEYWORD2
+continuesend	KEYWORD2
+clear	KEYWORD2
+Character_Point	KEYWORD2

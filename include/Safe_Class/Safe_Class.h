@@ -1,0 +1,50 @@
+/*
+ * 本头文件在项目文件夹下编辑
+ * 并在完成编辑后复制至C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Safe_Class下覆盖
+ * 
+ * 在本头文件中主要声明了在运行过程中保险箱所需要的所有函数和数据寄存器
+ * 包括：
+ * * 各个设备与Arduino主板通信的接口
+ * * 密码数据
+ * * 实现保险箱工作所需要的各项功能的函数
+ * * 保险箱功能实现所需要的部分头文件和define声明
+ * 但不包括：
+ * * HC-06蓝牙核心模块软串口声明及使用
+ * * TM74HC595数字显示模块声明及使用
+ * * 串口声明
+ * * 串口输入输出
+ * 在头文件完成并覆盖入Arduino自定义库文件夹后 需在项目文件夹下 $\main.ino下引用
+*/
+
+#ifndef _SAFE_CLASS_H_
+#define _SAFE_CLASS_H_
+
+#include<Arduino.h>
+
+class Safe_Class{
+    public:
+        //构造函数
+        Safe_Class( int _Speaker , int _Motor );
+
+        //向计算机终端发送验证码
+        void send_Verification_Code();
+
+        //验证在密码盘上输入的验证码是否正确
+        bool Admin_Verify( long _Verification_Code_INPUT );
+
+    private:
+        //验证码生成器
+        void _Verification_Code_Create();
+        
+        //通信接口寄存器
+        int _Speaker_PIN;
+        int _Motor_PIN;
+
+        //密码寄存器
+        long _Password;
+
+        //验证码寄存器
+        long _Verification_Code;
+};
+
+#endif
