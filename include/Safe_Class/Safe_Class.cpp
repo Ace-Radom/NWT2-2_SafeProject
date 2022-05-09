@@ -28,6 +28,10 @@ bool Safe_Class::Admin_Verify( long _Verification_Code_INPUT ){
     return false;
 }
 
+void Safe_Class::_StepMotor_TestFunction( uint32_t _Step ){
+    _StepMotor_Step( _Step );
+}
+
 //私有成员函数部分
 
 void Safe_Class::_Verification_Code_Create(){

@@ -32,6 +32,8 @@ class Safe_Class{
         //验证在密码盘上输入的验证码是否正确
         bool Admin_Verify( long _Verification_Code_INPUT );
 
+        void _StepMotor_TestFunction( uint32_t _Step );
+
     private:
         //程序运行参数
         uint16_t _Speaker_PIN;  /* 扬声器通信接口 */
