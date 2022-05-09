@@ -23,7 +23,7 @@
 
 class Safe_Class{
     public:
-        //构造函数
+        //构造函数 (设定所有设备的通信接口和程序内参数)
         Safe_Class( uint16_t _StepMotor_1 , uint16_t _StepMotor_2 , uint16_t _StepMotor_3 , uint16_t _StepMotor_4 , uint16_t _StepMotor_SPR_Set );
 
         //向计算机终端发送验证码
@@ -48,9 +48,14 @@ class Safe_Class{
         uint16_t _StepMotor_StepON;  /* 步进式马达启动接口 */
         uint64_t _StepMotor_LST;  /* 步进式马达上次步进时间 LST = Last Step's Time */
 
-
         //步进式马达参数预设
         void _StepMotor_Preset();
+
+        //步进式马达旋转 (调用接口)
+        void _StepMotor_Step( uint32_t _stepNUM );
+
+        //步进式马达旋转 (工作接口)
+        void _StepMotor( uint32_t _this_Step );
 
         //验证码生成器
         void _Verification_Code_Create();
