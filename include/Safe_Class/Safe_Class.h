@@ -24,7 +24,7 @@
 class Safe_Class{
     public:
         //构造函数
-        Safe_Class( int _Speaker , int _Motor );
+        Safe_Class( uint16_t _StepMotor_1 , uint16_t _StepMotor_2 , uint16_t _StepMotor_3 , uint16_t _StepMotor_4 , uint16_t _StepMotor_SPR_Set );
 
         //向计算机终端发送验证码
         void send_Verification_Code();
@@ -33,12 +33,27 @@ class Safe_Class{
         bool Admin_Verify( long _Verification_Code_INPUT );
 
     private:
+        //程序运行参数
+        uint16_t _Speaker_PIN;  /* 扬声器通信接口 */
+
+        uint16_t _StepMotor_PIN1;  /* 步进式马达IN1 (R1) */
+        uint16_t _StepMotor_PIN2;  /* 步进式马达IN2 (R2) */
+        uint16_t _StepMotor_PIN3;  /* 步进式马达IN3 (R3) */
+        uint16_t _StepMotor_PIN4;  /* 步进式马达IN4 (R4) */
+        uint16_t _StepMotor_Speed;  /* 步进式马达每分钟旋转圈数 */
+
+        uint64_t _StepMotor_SPR;  /* 步进式马达每圈分步数量 SPR = Step per Rotation */
+        uint64_t _StepMotor_LBS;  /* 步进式马达每步间间隔 (ms) LBS = Latency between Steps */
+        uint16_t _StepMotor_Direction = 0;  /* 步进式马达旋转方向 */
+        uint16_t _StepMotor_StepON;  /* 步进式马达启动接口 */
+        uint64_t _StepMotor_LST;  /* 步进式马达上次步进时间 LST = Last Step's Time */
+
+
+        //步进式马达参数预设
+        void _StepMotor_Preset();
+
         //验证码生成器
         void _Verification_Code_Create();
-        
-        //通信接口寄存器
-        int _Speaker_PIN;
-        int _Motor_PIN;
 
         //密码寄存器
         long _Password;
