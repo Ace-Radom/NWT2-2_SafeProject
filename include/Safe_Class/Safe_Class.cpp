@@ -9,6 +9,7 @@ Safe_Class::Safe_Class( uint16_t _StepMotor_1 , uint16_t _StepMotor_2 , uint16_t
     _StepMotor_PIN4 = _StepMotor_4;
     _StepMotor_SPR = _StepMotor_SPR_Set;
     _StepMotor_Speed = _StepMotor_Speed_Set;
+    //_StepMotor._set( _StepMotor_SPR , _StepMotor_PIN1 , _StepMotor_PIN2 , _StepMotor_PIN3 , _StepMotor_PIN4 );
     _StepMotor_Preset();
 }
 
@@ -28,9 +29,11 @@ bool Safe_Class::Admin_Verify( long _Verification_Code_INPUT ){
     return false;
 }
 
+/*
 void Safe_Class::_StepMotor_TestFunction( uint32_t _Step ){
     _StepMotor_Step( _Step );
 }
+*/
 
 //私有成员函数部分
 

@@ -20,6 +20,7 @@
 #define _SAFE_CLASS_H_
 
 #include<Arduino.h>
+#include<Stepper.h>
 
 class Safe_Class{
     public:
@@ -44,6 +45,7 @@ class Safe_Class{
         uint16_t _StepMotor_PIN4;  /* 步进式马达IN4 (R4) */
         uint16_t _StepMotor_Speed;  /* 步进式马达每分钟旋转圈数 */
         uint64_t _StepMotor_SPR;  /* 步进式马达每圈分步数量 SPR = Step per Rotation */
+
 
         uint64_t _StepMotor_LBS;  /* 步进式马达每步间间隔 (ms) LBS = Latency between Steps */
         uint16_t _StepMotor_Direction = 0;  /* 步进式马达旋转方向 */
