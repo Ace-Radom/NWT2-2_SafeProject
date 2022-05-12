@@ -22,6 +22,7 @@
 #include<Arduino.h>
 #include<Stepper.h>
 
+
 class Safe_Class{
     public:
         //构造函数 (设定所有设备的通信接口和程序内参数)

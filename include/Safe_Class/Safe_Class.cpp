@@ -1,5 +1,7 @@
 #include<Safe_Class.h>
 
+Stepper Motor( 2048 , 7 , 5 , 6 , 4 );
+
 //公有成员函数部分
 
 Safe_Class::Safe_Class( uint16_t _StepMotor_1 , uint16_t _StepMotor_2 , uint16_t _StepMotor_3 , uint16_t _StepMotor_4 , uint64_t _StepMotor_SPR_Set , uint16_t _StepMotor_Speed_Set ){
@@ -29,11 +31,11 @@ bool Safe_Class::Admin_Verify( long _Verification_Code_INPUT ){
     return false;
 }
 
-/*
 void Safe_Class::_StepMotor_TestFunction( uint32_t _Step ){
     _StepMotor_Step( _Step );
+    //Motor.step( _Step );
 }
-*/
+
 
 //私有成员函数部分
 
@@ -53,6 +55,39 @@ void Safe_Class::_StepMotor_Preset(){
 }
 
 void Safe_Class::_StepMotor_Step( uint32_t _stepNUM ){
+
+    int steps_left = abs(_stepNUM); 
+
+  if (_stepNUM > 0) { this->_StepMotor_Direction = 1; }
+  if (_stepNUM < 0) { this->_StepMotor_Direction = 0; }
+
+
+  while (steps_left > 0)
+  {
+    unsigned long now = micros();
+    if (now - this->_StepMotor_LST >= this->_StepMotor_LBS)
+    {
+      this->_StepMotor_LST = now;
+      if (this->_StepMotor_Direction == 1)
+      {
+        this->_StepMotor_StepNUM++;
+        if (this->_StepMotor_StepNUM == this->_StepMotor_SPR) {
+          this->_StepMotor_StepNUM = 0;
+        }
+      }
+      else
+      {
+        if (this->_StepMotor_StepNUM == 0) {
+          this->_StepMotor_StepNUM = this->_StepMotor_SPR;
+        }
+        this->_StepMotor_StepNUM--;
+      }
+      steps_left--;
+      _StepMotor(this->_StepMotor_StepNUM % 4);
+    }
+  }
+
+    /*
     long _steps_LEFT = abs( _stepNUM );
     if ( _stepNUM > 0 )
     {
@@ -88,9 +123,38 @@ void Safe_Class::_StepMotor_Step( uint32_t _stepNUM ){
             _StepMotor( _StepMotor_StepNUM % 4 );
         }
     }
+    */
 }
 
 void Safe_Class::_StepMotor( uint32_t _this_Step ){
+
+    switch (_this_Step) {
+      case 0:  // 1010
+        digitalWrite(_StepMotor_PIN1, HIGH);
+        digitalWrite(_StepMotor_PIN2, LOW);
+        digitalWrite(_StepMotor_PIN3, HIGH);
+        digitalWrite(_StepMotor_PIN4, LOW);
+      break;
+      case 1:  // 0110
+        digitalWrite(_StepMotor_PIN1, LOW);
+        digitalWrite(_StepMotor_PIN2, HIGH);
+        digitalWrite(_StepMotor_PIN3, HIGH);
+        digitalWrite(_StepMotor_PIN4, LOW);
+      break;
+      case 2:  //0101
+        digitalWrite(_StepMotor_PIN1, LOW);
+        digitalWrite(_StepMotor_PIN2, HIGH);
+        digitalWrite(_StepMotor_PIN3, LOW);
+        digitalWrite(_StepMotor_PIN4, HIGH);
+      break;
+      case 3:  //1001
+        digitalWrite(_StepMotor_PIN1, HIGH);
+        digitalWrite(_StepMotor_PIN2, LOW);
+        digitalWrite(_StepMotor_PIN3, LOW);
+        digitalWrite(_StepMotor_PIN4, HIGH);
+      break;
+    }
+    /*
     switch ( _this_Step ){
         case 0:
             digitalWrite( _StepMotor_PIN1 , HIGH );
@@ -120,4 +184,5 @@ void Safe_Class::_StepMotor( uint32_t _this_Step ){
             digitalWrite( _StepMotor_PIN4 , HIGH );
             break;
     }
+    */
 }
