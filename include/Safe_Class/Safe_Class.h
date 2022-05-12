@@ -34,7 +34,7 @@ class Safe_Class{
         //验证在密码盘上输入的验证码是否正确
         bool Admin_Verify( long _Verification_Code_INPUT );
 
-        void _StepMotor_TestFunction( uint32_t _Step );
+        void _StepMotor_TestFunction( int _Step );
 
     private:
         //程序运行参数
@@ -50,17 +50,17 @@ class Safe_Class{
 
         uint64_t _StepMotor_LBS;  /* 步进式马达每步间间隔 (ms) LBS = Latency between Steps */
         uint16_t _StepMotor_Direction = 0;  /* 步进式马达旋转方向 */
-        uint16_t _StepMotor_StepNUM;  /* 步进式马达启动接口 */
+        uint16_t _StepMotor_StepNUM;  /* 步进式马达目前所在步数记录 */
         uint64_t _StepMotor_LST;  /* 步进式马达上次步进时间 LST = Last Step's Time */
 
         //步进式马达参数预设
         void _StepMotor_Preset();
 
         //步进式马达旋转 (调用接口)
-        void _StepMotor_Step( uint32_t _stepNUM );
+        void _StepMotor_Step( int _stepNUM );
 
         //步进式马达旋转 (工作接口)
-        void _StepMotor( uint32_t _this_Step );
+        void _StepMotor( int _this_Step );
 
         //验证码生成器
         void _Verification_Code_Create();
